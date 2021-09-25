@@ -1,3 +1,3 @@
 import Foundation
-@exportable import OpenSwiftUI
+import OpenSwiftUI
 

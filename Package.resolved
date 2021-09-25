@@ -11,20 +11,29 @@
         }
       },
       {
-        "package": "OpenSwiftUI",
-        "repositoryURL": "https://github.com/PureSwift/OpenSwiftUI.git",
+        "package": "CoreGraphicsShim",
+        "repositoryURL": "https://github.com/Cosmo/CoreGraphicsShim.git",
         "state": {
           "branch": "master",
-          "revision": "5ee622a89be1a936d4685b697b41f68099f21433",
+          "revision": "d2aec4b41d4f92371198b9a382f35749254f0a80",
+          "version": null
+        }
+      },
+      {
+        "package": "OpenSwiftUI",
+        "repositoryURL": "https://github.com/AlekSimpson/OpenSwiftUI.git",
+        "state": {
+          "branch": "master",
+          "revision": "57c89eeccccd6e83e1f687e25a5bdb22fc76a6e6",
           "version": null
         }
       },
       {
         "package": "SDL",
-        "repositoryURL": "https://github.com/PureSwift/SDL.git",
+        "repositoryURL": "https://github.com/ciorarn21/SDL.git",
         "state": {
           "branch": "master",
-          "revision": "d3c34516bdad3ab6902b46d00a33c2ac08f6b88e",
+          "revision": "980f6563ff37686b6b60cd3e651e64cc092c4038",
           "version": null
         }
       },

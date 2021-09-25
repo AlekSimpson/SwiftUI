@@ -18,7 +18,7 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/PureSwift/OpenSwiftUI.git",
+            url: "https://github.com/AlekSimpson/OpenSwiftUI.git",
             .branch("master")
         ),
         .package(
@@ -26,7 +26,7 @@ let package = Package(
             .branch("master")
         ),
         .package(
-            url: "https://github.com/PureSwift/SDL.git",
+            url: "https://github.com/ciorarn21/SDL.git",
             .branch("master")
         )
     ],
