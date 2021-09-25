@@ -6,15 +6,17 @@
 //
 
 import Foundation
+import CSDL2
 import SDL
+import OpenSwiftUI
 
-internal final class SDLView {
+public final class SDLView<view: View, representable: ViewRepresentable> {
     
     // MARK: - Properties
+
+    public private(set) var subviews = [view?]()
     
-    public private(set) var subviews = [View]()
-    
-    public private(set) weak var superview: View?
+    public private(set) var superview: view?
     
     public var alpha: Float = 1.0 {
         didSet {
@@ -22,52 +24,54 @@ internal final class SDLView {
             //setNeedsDisplay()
         }
     }
+
+    public var frame:CGRect?
     
-    public var window: Window?
+    public var window: Window<representable>?
     
-    /// The root view in the hierarchy.
-    private var rootSuperview: View {
-        return superview?.rootSuperview ?? self
+    // The root view in the hierarchy.
+    private var rootSuperview: view {
+        return self.rootSuperview 
     }
     
-    internal var rootWindow: Window? {
-        return window ?? superview?.rootWindow
+    internal var rootWindow: Window<representable>? {
+        return window ?? self.rootWindow
     }
     
     // MARK: - Initialization
     
-    public init(frame: Rect = .zero) {
+    public init(frame: CGRect = .zero) {
         self.frame = frame
     }
     
     // MARK: - Methods
     
-    public func addSubview(_ view: View) {
+    public func addSubview(_ view: view) {
         
         self.subviews.append(view)
-        view.superview = self
+        self.superview = view
     }
     
     public func removeFromSuperview() {
         
-        guard let superview = self.superview,
-            let index = superview.subviews.firstIndex(where: { $0 === self })
+        guard let _ = self.superview, // _ = superview
+            let index = self.subviews.firstIndex(where: { $0 as? SDLView<view, representable> === self })
             else { return }
         
-        superview.subviews.remove(at: index)
+        self.subviews.remove(at: index)
     }
 }
 
-internal protocol ViewRepresentable {
+public protocol ViewRepresentable: View { // Inner
     
-    associatedtype ViewType: SDLView
-    typealias Context = ViewRepresentableContext<Self>
+    typealias ViewType = SDLView<Self, Self> 
+    typealias Context = ViewRepresentableContext
     
     func makeView(context: Context) -> ViewType
     func updateView(_ view: ViewType, context: Context)
 }
 
-internal extension ViewRepresentable {
+public extension ViewRepresentable {
     
     func load(context: Context) -> ViewType {
         let view = makeView(context: context)
@@ -76,7 +80,17 @@ internal extension ViewRepresentable {
     }
 }
 
-internal struct ViewRepresentableContext <Representable : ViewRepresentable> {
-    
-    
+public struct ConcreteViewRepresentable: ViewRepresentable, View
+{
+    public var test = SDLView<Self, Self>() 
+    public typealias Context = ViewRepresentableContext
+
+    public var body: some View { Text("test") }
+
+    public func makeView(context: Context) -> ViewType { return test }
+    public func updateView(_ view: ViewType, context: Context) {}
+}
+
+public struct ViewRepresentableContext {
+    typealias Representable = ViewRepresentable
 }

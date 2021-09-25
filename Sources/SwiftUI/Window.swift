@@ -11,7 +11,7 @@ import SDL
 import OpenSwiftUI
 
 /// Window for hosting SwiftUI views.
-public final class Window <Content: View> {
+public final class Window <Content: ViewRepresentable> {
     
     // MARK: - Properties
     
@@ -39,10 +39,10 @@ public final class Window <Content: View> {
     /// UI scale in points.
     public var scale: Float { return Float(nativeSize.width) / Float(size.width) }
     
-    internal private(set) var context: ViewRepresentableContext
+    internal private(set) var context = ViewRepresentableContext()
     
     // MARK: - Initialization
-    
+    //rootView: Content,
     public init(rootView: Content,
                 title: String = "",
                 frame: (x: SDLWindow.Position,
@@ -61,8 +61,7 @@ public final class Window <Content: View> {
         self.rootView = rootView
         
         // initialize underlying root view
-        guard let view = (rootView as? ViewRepresentable)?.load()
-            else { fatalError("Invalid view \(Content.self)") }
+        let _ = rootView.load(context: context) // view
     }
     
     // MARK: - Methods
