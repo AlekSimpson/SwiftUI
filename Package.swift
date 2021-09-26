@@ -3,9 +3,6 @@ import PackageDescription
 
 let package = Package(
     name: "SwiftUI",
-    platforms: [
-        .macOS(.v10_15), .iOS(.v13)
-    ],
     products: [
         .library(
             name: "SwiftUI",
@@ -22,20 +19,21 @@ let package = Package(
             .branch("master")
         ),
         .package(
-            url: "https://github.com/PureSwift/Silica.git",
+            url: "https://github.com/ciorarn21/SDL.git",
             .branch("master")
         ),
         .package(
-            url: "https://github.com/ciorarn21/SDL.git",
+            url: "https://github.com/Cosmo/Pixels.git",
             .branch("master")
-        )
+        ),
     ],
     targets: [
         .target(
             name: "SwiftUI",
             dependencies: [
                 "OpenSwiftUI",
-                "SDL"
+                "SDL",
+                "Pixels",
             ]
         ),
         .target(
