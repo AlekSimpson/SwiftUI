@@ -5,10 +5,20 @@
 //  Created by Alsey Coleman Miller on 12/12/19.
 //
 
-import Foundation
+// import Foundation
 import CSDL2
 import SDL
 import OpenSwiftUI
+
+/*
+MARK:
+Application needs a generic paramter of type View that will be passed into window and thus into SDLView.
+In the SwiftUI project I need to pass in the MainView as a generic paramter to an Application instance. 
+
+SUB-MARK:
+Might end up needing to make the View parameter an initialization paramter and not a generic parameter but that needs to know for sure. 
+
+*/
 
 /// SwiftUI Application singleton
 public final class Application {
@@ -16,14 +26,12 @@ public final class Application {
     // MARK: - Initialization
     
     public static let shared = Application()
-    
+
     private init() { }
     
     // MARK: - Properties
-    typealias view = View 
     public typealias representable = ConcreteViewRepresentable
     
-    // MARK: NEED TO FIGURE OUT WHAT TO PASS INTO WINDOW
     public var didLaunch: (() throws -> (Window<representable>)) = {
         return try Window(rootView: ConcreteViewRepresentable(), title: "", frame: (x: .centered, y: .centered, width: 640, height: 480))
     }

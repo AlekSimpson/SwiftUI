@@ -42,7 +42,6 @@ public final class Window <Content: ViewRepresentable> {
     internal private(set) var context = ViewRepresentableContext()
     
     // MARK: - Initialization
-    //rootView: Content,
     public init(rootView: Content,
                 title: String = "",
                 frame: (x: SDLWindow.Position,
