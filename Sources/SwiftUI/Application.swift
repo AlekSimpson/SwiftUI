@@ -30,15 +30,15 @@ public final class Application {
     private init() { }
     
     // MARK: - Properties
-    public typealias representable = ConcreteViewRepresentable
+    // public typealias representable = ConcreteViewRepresentable
     
-    public var didLaunch: (() throws -> (Window<representable>)) = {
+    public var didLaunch: (() throws -> (Window)) = {
         return try Window(rootView: ConcreteViewRepresentable(), title: "", frame: (x: .centered, y: .centered, width: 640, height: 480))
     }
     
     internal private(set) var isRunning = false
     
-    public private(set) var windows = [Window<representable>]()
+    public private(set) var windows = [Window]()
     
     // MARK: - Methods
     
@@ -126,7 +126,7 @@ public final class Application {
     //     }
     // }
     
-    internal func window(for identifier: UInt) -> Window<representable> {
+    internal func window(for identifier: UInt) -> Window {
         
         guard let window = windows.first(where: { $0.identifier == identifier })
             else { fatalError("Invalid window identifier \(identifier)") }

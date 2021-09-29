@@ -11,11 +11,11 @@ import SDL
 import OpenSwiftUI
 
 /// Window for hosting SwiftUI views.
-public final class Window <Content: ViewRepresentable> {
+public final class Window {
     
     // MARK: - Properties
     
-    public private(set) var rootView: Content
+    public private(set) var rootView: ConcreteViewRepresentable
     
     internal let window: SDLWindow
     
@@ -42,7 +42,7 @@ public final class Window <Content: ViewRepresentable> {
     internal private(set) var context = ViewRepresentableContext()
     
     // MARK: - Initialization
-    public init(rootView: Content,
+    public init(rootView: ConcreteViewRepresentable,
                 title: String = "",
                 frame: (x: SDLWindow.Position,
                         y: SDLWindow.Position,

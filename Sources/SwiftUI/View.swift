@@ -10,7 +10,7 @@ import CSDL2
 import SDL
 import OpenSwiftUI
 
-public final class SDLView<view: View, representable: ViewRepresentable> {
+public final class SDLView<view: View> {
     
     // MARK: - Properties
 
@@ -27,14 +27,14 @@ public final class SDLView<view: View, representable: ViewRepresentable> {
 
     public var frame:CGRect?
     
-    public var window: Window<representable>?
+    public var window: Window?
     
     // The root view in the hierarchy.
     private var rootSuperview: view {
         return self.rootSuperview 
     }
     
-    internal var rootWindow: Window<representable>? {
+    internal var rootWindow: Window? {
         return window ?? self.rootWindow
     }
     
@@ -55,7 +55,7 @@ public final class SDLView<view: View, representable: ViewRepresentable> {
     public func removeFromSuperview() {
         
         guard let _ = self.superview, // _ = superview
-            let index = self.subviews.firstIndex(where: { $0 as? SDLView<view, representable> === self })
+            let index = self.subviews.firstIndex(where: { $0 as? SDLView<view> === self })
             else { return }
         
         self.subviews.remove(at: index)
@@ -64,7 +64,7 @@ public final class SDLView<view: View, representable: ViewRepresentable> {
 
 public protocol ViewRepresentable: View { // Inner
     
-    typealias ViewType = SDLView<Self, Self> 
+    typealias ViewType = SDLView<Self> 
     typealias Context = ViewRepresentableContext
     
     func makeView(context: Context) -> ViewType
@@ -80,14 +80,21 @@ public extension ViewRepresentable {
     }
 }
 
+/*
+
+MARK: OK SO ConcreteViewRepresentable NEEDS TO HAVE AN INITIALIZER THAT TAKES IN A TYPE View AND INITIALIZES THAT VIEW AS THE BODY AND AS AN SDLView
+THIS IS BECAUSE THEN WE CAN PASS IN A REGUALR VIEW TO APPLICATION AND THAT VIEW CAN BE TURNED INTO A CONCRETE VIEW THAT THEN CAN SENT TO BE RENDERED BY THE APPLICAITON
+
+*/
+
 public struct ConcreteViewRepresentable: ViewRepresentable, View
 {
-    public var test = SDLView<Self, Self>() 
+    public var sdlview = SDLView<Self>() 
     public typealias Context = ViewRepresentableContext
 
     public var body: some View { Text("test") }
 
-    public func makeView(context: Context) -> ViewType { return test }
+    public func makeView(context: Context) -> ViewType { return sdlview }
     public func updateView(_ view: ViewType, context: Context) {}
 }
 
