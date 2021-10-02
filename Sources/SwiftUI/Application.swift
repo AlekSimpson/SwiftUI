@@ -32,7 +32,7 @@ public final class Application {
     
     // MARK: - Initialization
 
-    private init(_view: ConcreteView) {
+    public init(_ _view: ConcreteView) {
         self.view = _view 
 
         do
