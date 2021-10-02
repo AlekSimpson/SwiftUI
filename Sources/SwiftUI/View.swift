@@ -87,7 +87,7 @@ THIS IS BECAUSE THEN WE CAN PASS IN A REGUALR VIEW TO APPLICATION AND THAT VIEW 
 
 */
 
-public struct ConcreteView: View 
+public struct HomeView: View 
 {
     public var body: some View {
         Text("placeholder")
@@ -100,7 +100,7 @@ public struct ConcreteViewRepresentable: ViewRepresentable, View
     public typealias Context = ViewRepresentableContext
     public var view: ConcreteView
 
-    public init(_view: ConcreteView)
+    public init(_view: HomeView)
     {
         self.view = _view 
     }

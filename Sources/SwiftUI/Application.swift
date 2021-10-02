@@ -24,7 +24,7 @@ Might end up needing to make the View parameter an initialization paramter and n
 public final class Application {
     
     // MARK: - Properties
-    public var view: ConcreteView
+    public var view: HomeView
 
     internal private(set) var isRunning = false
     
@@ -32,7 +32,7 @@ public final class Application {
     
     // MARK: - Initialization
 
-    public init(_ _view: ConcreteView) {
+    public init(_ _view: HomeView) {
         self.view = _view 
 
         do
