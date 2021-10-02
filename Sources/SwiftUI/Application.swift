@@ -23,28 +23,38 @@ Might end up needing to make the View parameter an initialization paramter and n
 /// SwiftUI Application singleton
 public final class Application {
     
-    // MARK: - Initialization
-    
-    public static let shared = Application()
-
-    private init() { }
-    
     // MARK: - Properties
-    // public typealias representable = ConcreteViewRepresentable
-    
-    public var didLaunch: (() throws -> (Window)) = {
-        return try Window(rootView: ConcreteViewRepresentable(), title: "", frame: (x: .centered, y: .centered, width: 640, height: 480))
-    }
-    
+    public var view: ConcreteView
+
     internal private(set) var isRunning = false
     
     public private(set) var windows = [Window]()
     
+    // MARK: - Initialization
+
+    private init(_view: ConcreteView) {
+        self.view = _view 
+
+        do
+        {
+            try run()
+        } catch 
+        {
+            print("something went wrong running in Application initialization")
+        }
+    }
+
     // MARK: - Methods
     
     /// Starts the application's main run loop.
     public func run() throws {
-        
+
+        print("Init Successful!")
+
+        var didLaunch: (() throws -> (Window)) = {
+            return try Window(rootView: ConcreteViewRepresentable(_view: self.view), title: "", frame: (x: .centered, y: .centered, width: 640, height: 480))
+        }
+
         isRunning = true
         defer { isRunning = false }
         

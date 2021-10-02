@@ -87,12 +87,25 @@ THIS IS BECAUSE THEN WE CAN PASS IN A REGUALR VIEW TO APPLICATION AND THAT VIEW 
 
 */
 
+public struct ConcreteView: View 
+{
+    public var body: some View {
+        Text("placeholder")
+    }
+}
+
 public struct ConcreteViewRepresentable: ViewRepresentable, View
 {
     public var sdlview = SDLView<Self>() 
     public typealias Context = ViewRepresentableContext
+    public var view: ConcreteView
 
-    public var body: some View { Text("test") }
+    public init(_view: ConcreteView)
+    {
+        self.view = _view 
+    }
+
+    public var body: some View { self.view }
 
     public func makeView(context: Context) -> ViewType { return sdlview }
     public func updateView(_ view: ViewType, context: Context) {}
