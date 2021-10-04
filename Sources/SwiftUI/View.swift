@@ -10,6 +10,8 @@ import CSDL2
 import SDL
 import OpenSwiftUI
 
+// MARK: Not quite sure what this one is for yet
+
 public final class SDLView<view: View> {
     
     // MARK: - Properties
@@ -80,32 +82,12 @@ public extension ViewRepresentable {
     }
 }
 
-/*
-
-MARK: OK SO ConcreteViewRepresentable NEEDS TO HAVE AN INITIALIZER THAT TAKES IN A TYPE View AND INITIALIZES THAT VIEW AS THE BODY AND AS AN SDLView
-THIS IS BECAUSE THEN WE CAN PASS IN A REGUALR VIEW TO APPLICATION AND THAT VIEW CAN BE TURNED INTO A CONCRETE VIEW THAT THEN CAN SENT TO BE RENDERED BY THE APPLICAITON
-
-*/
-
-public struct HomeView: View 
-{
-    public var body: some View {
-        Text("placeholder")
-    }
-}
-
 public struct ConcreteViewRepresentable: ViewRepresentable, View
 {
     public var sdlview = SDLView<Self>() 
     public typealias Context = ViewRepresentableContext
-    public var view: ConcreteView
 
-    public init(_view: HomeView)
-    {
-        self.view = _view 
-    }
-
-    public var body: some View { self.view }
+    public var body: some View { Text("test") }
 
     public func makeView(context: Context) -> ViewType { return sdlview }
     public func updateView(_ view: ViewType, context: Context) {}

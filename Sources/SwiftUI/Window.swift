@@ -10,6 +10,8 @@ import CSDL2
 import SDL
 import OpenSwiftUI
 
+//MARK: This file handles actually rendering the window and showing to the screen
+
 /// Window for hosting SwiftUI views.
 public final class Window {
     
@@ -42,13 +44,7 @@ public final class Window {
     internal private(set) var context = ViewRepresentableContext()
     
     // MARK: - Initialization
-    public init(rootView: ConcreteViewRepresentable,
-                title: String = "",
-                frame: (x: SDLWindow.Position,
-                        y: SDLWindow.Position,
-                        width: Int,
-                        height: Int)) throws {
-        
+    public init(rootView: ConcreteViewRepresentable, title: String = "", frame: (x: SDLWindow.Position, y: SDLWindow.Position, width: Int, height: Int)) throws {
         self.window = try SDLWindow(
             title: title,
             frame: frame,

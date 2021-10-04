@@ -10,21 +10,13 @@ import CSDL2
 import SDL
 import OpenSwiftUI
 
-/*
-MARK:
-Application needs a generic paramter of type View that will be passed into window and thus into SDLView.
-In the SwiftUI project I need to pass in the MainView as a generic paramter to an Application instance. 
-
-SUB-MARK:
-Might end up needing to make the View parameter an initialization paramter and not a generic parameter but that needs to know for sure. 
-
-*/
+//MARK: This file handles application runtime operations (window loop, events, etc)
 
 /// SwiftUI Application singleton
-public final class Application {
+public final class Application<V: View> {
     
     // MARK: - Properties
-    public var view: HomeView
+    public var view: V
 
     internal private(set) var isRunning = false
     
@@ -32,7 +24,7 @@ public final class Application {
     
     // MARK: - Initialization
 
-    public init(_ _view: HomeView) {
+    public init(_ _view: V) {
         self.view = _view 
 
         do
@@ -40,7 +32,7 @@ public final class Application {
             try run()
         } catch 
         {
-            print("something went wrong running in Application initialization")
+            print("Shaka when the walls fell (App Init Error)")
         }
     }
 
@@ -49,10 +41,10 @@ public final class Application {
     /// Starts the application's main run loop.
     public func run() throws {
 
-        print("Init Successful!")
+        print("Initialization Successful!")
 
-        var didLaunch: (() throws -> (Window)) = {
-            return try Window(rootView: ConcreteViewRepresentable(_view: self.view), title: "", frame: (x: .centered, y: .centered, width: 640, height: 480))
+        let didLaunch: (() throws -> (Window)) = {
+            return try Window(rootView: ConcreteViewRepresentable(), title: "", frame: (x: .centered, y: .centered, width: 640, height: 480))
         }
 
         isRunning = true
