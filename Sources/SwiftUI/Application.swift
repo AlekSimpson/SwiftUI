@@ -55,7 +55,9 @@ public final class Application<V: View> {
         try SDL.initialize(subSystems: [.video])
         defer { SDL.quit() }
         
-        var _ = try didLaunch() // window
+        var window = try didLaunch() // window
+
+        windows.append(window)
         
         let runloop = RunLoop.current
         
@@ -94,9 +96,9 @@ public final class Application<V: View> {
             runloop.run(mode: .default, before: frameStart + maximumFrameDuration)
             
             // render
-            // for window in windows {
-            //     try window.update()
-            // }
+            for window in windows {
+                try window.render()
+            }
             
             // sleep to save energy
             let frameDuration = SDL_GetTicks() - startTime

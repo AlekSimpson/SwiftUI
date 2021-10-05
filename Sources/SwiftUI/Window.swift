@@ -66,6 +66,6 @@ public final class Window {
         try renderer.setDrawColor(red: 0x00, green: 0x00, blue: 0x00, alpha: 0xFF)
         try renderer.clear()
         //try render(view: view, origin: .zero)
-        //renderer.present()
+        renderer.present()
     }
 }
