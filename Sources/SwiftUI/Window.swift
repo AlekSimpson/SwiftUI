@@ -61,11 +61,12 @@ public final class Window {
     
     // MARK: - Methods
     
-    internal func render() throws {
+    internal func render<V: View>(view: V) throws {
         
         try renderer.setDrawColor(red: 0x00, green: 0x00, blue: 0x00, alpha: 0xFF)
         try renderer.clear()
-        //try render(view: view, origin: .zero)
-        renderer.present()
+        // try render(view: view, origin: .zero)
+        try render(view: view)
+        renderer.present()                                                                                                                                                                    
     }
 }

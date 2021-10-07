@@ -97,7 +97,7 @@ public final class Application<V: View> {
             
             // render
             for window in windows {
-                try window.render()
+                try window.render(view: view)
             }
             
             // sleep to save energy
