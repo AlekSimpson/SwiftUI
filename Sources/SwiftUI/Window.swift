@@ -56,7 +56,7 @@ public final class Window {
         self.rootView = rootView
         
         // initialize underlying root view
-        let _ = rootView.load(context: context) // view
+        // let _ = rootView.load(context: context) // view
     }
     
     // MARK: - Methods
@@ -74,7 +74,7 @@ public final class Window {
         try surface.fill(color: color)
         let surfaceTexture = try SDLTexture(renderer: renderer, surface: surface)
         try surfaceTexture.setBlendMode([.alpha])
-        // try renderer.copy(surfaceTexture, destination: SDL_Rect(x: 100, y: 100, w: 200, h: 200))
+        try renderer.copy(surfaceTexture, destination: SDL_Rect(x: 100, y: 100, w: 200, h: 200))
 
         // try render(view: view, origin: .zero)
         // try render(view: view)
