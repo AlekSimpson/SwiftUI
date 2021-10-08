@@ -65,8 +65,20 @@ public final class Window {
         
         try renderer.setDrawColor(red: 0x00, green: 0x00, blue: 0x00, alpha: 0xFF)
         try renderer.clear()
+
+        let surface = try SDLSurface(rgb: (0, 0, 0, 0), size: (width: 1, height: 1), depth: 32)
+        let color = SDLColor(
+            format: try SDLPixelFormat(format: .argb8888),
+            red: 25, green: 50, blue: .max, alpha: .max / 2
+        )
+        try surface.fill(color: color)
+        let surfaceTexture = try SDLTexture(renderer: renderer, surface: surface)
+        try surfaceTexture.setBlendMode([.alpha])
+        try renderer.copy(surfaceTexture, destination: SDL_Rect(x: 100, y: 100, w: 200, h: 200))
+
         // try render(view: view, origin: .zero)
-        try render(view: view)
+        // try render(view: view)
+
         renderer.present()                                                                                                                                                                    
     }
 }
